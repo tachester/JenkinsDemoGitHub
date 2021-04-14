@@ -35,7 +35,7 @@ public class MainDriver {
 
     private static void insertInitialValues() {
 
-        shumanServ.addSHuman(new SuperHuman("Fairy Valentine", "Telekinetic Armor", 0));
+        shumanServ.addSHuman(new SuperHuman("Fairy Valentine", "Telekinetic Armor", 10_000));
         shumanServ.addSHuman(new SuperHuman("Pastor", "Holy Water", 0));
         shumanServ.addSHuman(new SuperHuman("Khro", "Time Dilation", 260_000));
         shumanServ.addSHuman(new SuperHuman("Mars", "Sandstorm", 750_000));
