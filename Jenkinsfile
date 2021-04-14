@@ -27,7 +27,7 @@ pipeline {
 						echo 'No directory exists'
 					}
 				}
-				sh "git clone https://github.com/TrainingOrgan/JenkinsDemoGitHub.git"
+				sh "git clone https://github.com/tachester/JenkinsDemoGitHub.git"
            }
         }
         stage ("Build my project, mane") {
