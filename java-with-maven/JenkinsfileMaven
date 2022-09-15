@@ -4,7 +4,7 @@ pipeline {
 	environment{
 		JENKINS_NODE_COOKIE = 'dontkillmeplease'
         TRAINING_PORT=9015
-		JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+		JAVA_HOME='/usr/lib/jvm/java-11-openjdk'
     }
 	
 	stages {
