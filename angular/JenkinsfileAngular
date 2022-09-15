@@ -37,7 +37,7 @@ pipeline {
 					// "npm install [path-to-package.json]" lets you run npm install inside of a different directory
 					sh 'npm install ./JenkinsDemoGitHub/angular/'
 					// "npm run --prefix [path-to-package.json] start" lets you run npm scripts inside of a different directory
-					sh 'npm run --prefix ./our-first-angular-project/ build'
+					sh 'npm run --prefix ./angular/ build'
 			}
 		}
         stage('Destroy Old Server') {
