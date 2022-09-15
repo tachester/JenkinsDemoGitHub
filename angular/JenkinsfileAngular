@@ -34,10 +34,16 @@ pipeline {
 				echo 'Building the angular file now'
 					sh 'pwd'
 					sh 'ls'
-					// "npm install [path-to-package.json]" lets you run npm install inside of a different directory
-					sh 'npm install ./JenkinsDemoGitHub/angular/'
+					// "npm install --prefix [path-to-package.json]" lets you run npm install inside of a different directory
+					//sh 'npm install --prefix ./JenkinsDemoGitHub/angular'
 					// "npm run --prefix [path-to-package.json] start" lets you run npm scripts inside of a different directory
-					sh 'npm run --prefix ./JenkinsDemoGitHub/angular/ build'
+					//sh 'npm run --prefix ./JenkinsDemoGitHub/angular build'
+					sh 'cd ./JenkinsDemoGitHub/angular'
+					sh 'pwd'
+					sh 'ls'
+					sh 'npm install'
+					sh 'npm build'
+					sh 'cd ../..'
 			}
 		}
         stage('Destroy Old Server') {
