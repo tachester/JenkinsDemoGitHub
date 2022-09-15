@@ -1,0 +1,60 @@
+pipeline {
+	agent any
+	
+	environment{
+		JENKINS_NODE_COOKIE = 'dontkillmeplease'
+        TRAINING_PORT=9015
+    }
+	
+	stages {
+		stage ("Its morphin time!") {
+			steps{
+				echo 'sabertooth tiger!'
+			}
+		}
+		stage('Clean our the current workspace') {
+            steps {
+              cleanWs()
+            }
+        }
+		stage('Reclone our github repo') {
+           steps {
+				script{
+					try {
+						sh "rm -r JenkinsDemoGitHub"
+						echo 'Directory found, and deleted'
+					} catch (all) {
+						echo 'No directory exists'
+					}
+				}
+				sh "git clone https://github.com/tachester/JenkinsDemoGitHub.git"
+           }
+        }
+        stage ("Build my project, mane") {
+			steps{
+				echo 'Building right now, fam'
+					sh './JenkinsDemoGitHub/java-with-maven/mvn clean package'
+			}
+		}
+        stage('Destroy Old Server') {
+            steps {
+                script {
+                    try {
+                        // kill any running instances
+                        sh 'kill $(lsof -t -i:9015)'
+                    } catch (all) {
+                        // if it fails that should mean a server wasn't already running
+                        echo 'No server was already running'
+                    }
+                }
+            }
+        }
+        stage('Start New Server!') {
+            steps {
+                script {
+                     sh 'nohup java -jar ./JenkinsDemoGitHub/java-with-maven/target/our-springboot-jenkins-project.jar &'
+                }
+            }
+        }
+	}
+}

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: TrevinChester
+Build-Jdk: 11.0.11
+Implementation-Title: HelloSpringBoot
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: example
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/HelloSpringBoot
+Created-By: Maven Integration for Eclipse
+

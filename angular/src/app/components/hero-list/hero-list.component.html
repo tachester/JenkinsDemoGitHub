@@ -1,0 +1,130 @@
+<h1>My Hero List Component is visible!!!</h1>
+
+<div class="panel panel-primary darkbground">
+    <!-- The   {{}}   syntax is used for interpolation; Interpolation evaluates
+        expressions and can use ONE WAY DATA BINDING
+
+        One-Way databinding (w/ interpolation) projects values in the TS to
+        the html page to be displayed. SO any changes to the TS file will
+        effect the html file, but NOT the other way around.
+        (aka data flows from the model to the template/view)
+    -->
+    Title and Interpolation Demo 1: {{heroListTitle}}<br>
+    Interpolation Demo 2: {{ 3 + 5 }} <br>
+    Interpolation Demo 3: {{interpolationMethod()}}<br>
+    Interpolation Demo 4: {{interpolationBoolean ? "success" : "failure"}}
+</div>
+
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div class="col-4">
+            
+            <!-- The  [( )]  syntax is used for two-way data binding. Also, we
+                refer to this syntax as "apple in a box" ...
+                or how John (2021) put it "Dollar Bill syntax"
+                or Caleb (2022) put it "Camera syntax"
+
+                In two-way databinding the HTML values and TS values are tied to each
+                other; if one changes, the other reflects those changes. Hence, 
+                "two-way data binding".
+
+                Side note: we often describe the html side of databinding as "the view"
+                and we describe the TS side of databinding as "the model".
+            -->
+            Filter: <input type="text" [(ngModel)]="inputField">
+        </div>
+        <div class="col-6">
+            <h5>Interpolated Value (strictly TS to HTML): {{inputField}}</h5>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- TABLE TIME!!! -->
+<!-- 
+                "*ngIf" is a "structural directive". We call it a STRUCTURAL directive
+                because it has the potential to alter the ENTIRE structure of the DOM.
+
+                Commonly used structural directives are:
+                *ngFor, *ngIf, *ngIfElse, *ngSwitch, *ngDefault
+
+             -->
+<h3 *ngIf="!(fullSuperHeroList && fullSuperHeroList.length)">Sorry, the table is empty!!!</h3>
+
+<div class="table-responsive darkbground" style="margin: 5rem" *ngIf="fullSuperHeroList && fullSuperHeroList.length">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <!-- the (  )  syntax is event binding
+                        Event binding allows you to add events to html event
+                        and link the events to functions/methods in your TS
+                    -->
+                    <button class="btn btn-primary" (click)="toggleImage()">
+                        Show Image
+                    </button>
+                </th>
+                <th>SuperHero</th>
+                <th>Rank</th>
+                <th>Ability</th>
+                <th>Organization</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 
+                *ngFor is an example of a structural directive being used.
+             -->
+            <!-- <tr *ngFor="let tempVariable of fullSuperHeroList"> -->
+            <tr *ngFor="let tempVariable of performFilter(inputField)">
+                <td>
+                    <!-- the  [ ]   syntax is property binding
+                        Property binding projects values in the TS to the html
+                        ATTRIBUTES that will then act upon that value. SO any
+                        changes to the TS file will effect the html attribute.
+                        This is a form of ONE-WAY BINDING!!!
+
+                        If you DON'T use the [ ] then it won't actually evaluate
+                        and expression and use one way binding...you'll just be
+                        setting a static value
+
+
+                        The *ngIf is an example of a structural directive being used.
+                    -->
+                    <img *ngIf='showImage' [src]="tempVariable.image" 
+                        [style.width.px]="imageWidth" [style.margin.px]="imageMargin"
+                        [title]="tempVariable.name">
+                </td>
+                <td>{{tempVariable.name}}</td>
+                <!-- <td>{{tempVariable.rank}}</td> -->
+                <td>
+                    <app-star [rank]="tempVariable.rank" 
+                        (starClicked)="starEventTriggerInParent($event)"></app-star>
+                </td>
+
+                <!-- What is a Pipe?
+                    Pipes transform data before the data is displayed. Pipes use
+                    the  |   syntax.
+                    Pipes can do things like uppercase, lowercase, titlecase,
+                    format currency, format dates, etc
+                    
+                    
+                    documentation:
+                    -https://angular.io/guide/pipes
+                    examples of pipes:
+                    -https://angular.io/api/common/CurrencyPipe
+                    -https://angular.io/api/common/DecimalPipe
+
+                    On the .ability example the order of prepend vs uppercase matters!
+                -->
+                <td>{{tempVariable.ability | prepend: 'Super ' | uppercase}}</td>
+                <td>{{tempVariable.organization | uppercase}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
