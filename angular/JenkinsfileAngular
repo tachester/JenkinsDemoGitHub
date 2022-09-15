@@ -30,7 +30,7 @@ pipeline {
 				sh "git clone https://github.com/tachester/JenkinsDemoGitHub.git"
            }
         }
-        stage ("Build my project, mane") {
+        stage ("Build my project") {
 			steps{
 				echo 'Building right now, fam'
 					sh './JenkinsDemoGitHub/gradlew build -p ./JenkinsDemoGitHub'
