@@ -3,7 +3,6 @@ pipeline {
 	
 	environment{
 		JENKINS_NODE_COOKIE = 'dontkillmeplease'
-        TRAINING_PORT=9025
     }
 	
 	stages {
@@ -30,10 +29,15 @@ pipeline {
 				sh "git clone https://github.com/tachester/JenkinsDemoGitHub.git"
            }
         }
-        stage ("Build my project") {
+        stage ("Build my project, mane") {
 			steps{
-				echo 'Building right now, fam'
-					sh './JenkinsDemoGitHub/gradlew build -p ./JenkinsDemoGitHub'
+				echo 'Building the angular file now'
+					sh 'pwd'
+					sh 'ls'
+					// "npm install [path-to-package.json]" lets you run npm install inside of a different directory
+					sh 'npm install ./JenkinsDemoGitHub/angular/'
+					// "npm run --prefix [path-to-package.json] start" lets you run npm scripts inside of a different directory
+					sh 'npm run --prefix ./our-first-angular-project/ build'
 			}
 		}
         stage('Destroy Old Server') {
@@ -41,7 +45,7 @@ pipeline {
                 script {
                     try {
                         // kill any running instances
-                        sh 'kill $(lsof -t -i:9025)'
+                        sh 'kill $(lsof -t -i:4200)'
                     } catch (all) {
                         // if it fails that should mean a server wasn't already running
                         echo 'No server was already running'
@@ -52,7 +56,7 @@ pipeline {
         stage('Start New Server!') {
             steps {
                 script {
-                     sh 'nohup java -jar ./JenkinsDemoGitHub/build/libs/JenkinsDemoProject-1.0-SNAPSHOT.jar &'
+                     sh 'nohup http-server dist/hello-angular-one -p 4200 &'
                 }
             }
         }

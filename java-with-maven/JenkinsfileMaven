@@ -36,7 +36,6 @@ pipeline {
 				echo 'Building right now, fam'
 					sh 'pwd'
 					sh 'ls'
-					sh 'echo $JAVA_HOME'
 					// "-f" lets you run a maven command inside of a different directory
 					sh 'mvn -f ./JenkinsDemoGitHub/java-with-maven clean package'
 			}
