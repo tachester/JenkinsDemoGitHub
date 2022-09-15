@@ -42,7 +42,7 @@ pipeline {
 							pwd
 							ls
 							npm install
-							npm build
+							ng build
 							'''
 			}
 		}
