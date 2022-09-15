@@ -33,7 +33,9 @@ pipeline {
         stage ("Build my project, mane") {
 			steps{
 				echo 'Building right now, fam'
-					sh './JenkinsDemoGitHub/java-with-maven/mvn clean package'
+					sh 'pwd'
+					// "-f" lets you run a maven command inside of a different directory
+					sh 'mvn -f ./JenkinsDemoGitHub/java-with-maven clean package'
 			}
 		}
         stage('Destroy Old Server') {
